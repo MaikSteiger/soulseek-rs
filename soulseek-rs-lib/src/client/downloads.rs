@@ -99,12 +99,14 @@ impl Client {
         username: String,
         size: u64,
         download_directory: String,
+        use_username_dirs: bool,
     ) -> Result<(Download, Receiver<DownloadStatus>)> {
         self.download_with_metadata(
             filename,
             username,
             size,
             download_directory,
+            use_username_dirs,
             DownloadMetadata::default(),
         )
     }
@@ -115,6 +117,7 @@ impl Client {
         username: String,
         size: u64,
         download_directory: String,
+        use_username_dirs: bool,
         metadata: DownloadMetadata,
     ) -> Result<(Download, Receiver<DownloadStatus>)> {
         info!("[client] Downloading {} from {}", filename, username);
@@ -132,6 +135,7 @@ impl Client {
             token,
             size,
             download_directory,
+            use_username_dirs,
             status: DownloadStatus::Queued,
             sender: download_sender,
             queue_position: None,

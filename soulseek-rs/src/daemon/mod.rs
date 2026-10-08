@@ -441,6 +441,7 @@ fn restore(
             download.username.clone(),
             download.size,
             download.download_directory.clone(),
+            download.use_username_dirs,
         ) {
             Ok((_, updates)) => {
                 if let Ok(mut pending) = downloads.lock() {

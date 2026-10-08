@@ -221,6 +221,7 @@ impl MainTui {
         let sender = self.downloads_sender();
         let client = self.client.clone();
         let download_dir = self.download_dir.clone();
+        let use_username_dirs = self.use_username_dirs;
         thread::spawn(move || {
             for (path, size) in files {
                 match client.download(
@@ -228,6 +229,7 @@ impl MainTui {
                     username.clone(),
                     size,
                     download_dir.clone(),
+                    use_username_dirs,
                 ) {
                     Ok((download, rx)) => {
                         let _ = sender.send((download, rx));

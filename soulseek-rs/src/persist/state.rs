@@ -22,6 +22,7 @@ pub struct PersistedDownload {
     pub filename: String,
     pub size: u64,
     pub download_directory: String,
+    pub use_username_dirs: bool,
     pub completed: bool,
 }
 
@@ -36,6 +37,7 @@ impl PersistedDownload {
             filename: download.filename.clone(),
             size: download.size,
             download_directory: download.download_directory.clone(),
+            use_username_dirs: download.use_username_dirs,
             completed: matches!(download.status, DownloadStatus::Completed),
         })
     }
@@ -182,6 +184,7 @@ mod tests {
             filename: "@@abc\\music\\song.mp3".into(),
             size: 123,
             download_directory: "/music".into(),
+            use_username_dirs: false,
             completed: false,
         }
     }

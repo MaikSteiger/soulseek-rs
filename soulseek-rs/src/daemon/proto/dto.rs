@@ -220,6 +220,7 @@ pub struct DownloadDto {
     pub token: u32,
     pub size: u64,
     pub download_directory: String,
+    pub use_username_dirs: bool,
     pub status: DownloadStatusDto,
     #[serde(default)]
     pub queue_position: Option<u32>,
@@ -235,6 +236,7 @@ impl From<&Download> for DownloadDto {
             token: download.token,
             size: download.size,
             download_directory: download.download_directory.clone(),
+            use_username_dirs: download.use_username_dirs,
             status: DownloadStatusDto::from(&download.status),
             queue_position: download.queue_position,
             metadata: DownloadMetadataDto::from(&download.metadata),

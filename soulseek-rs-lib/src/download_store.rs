@@ -242,6 +242,7 @@ mod tests {
             token,
             size: 100,
             download_directory: "test".to_string(),
+            use_username_dirs: false,
             status,
             sender: mpsc::channel().0,
             queue_position: None,

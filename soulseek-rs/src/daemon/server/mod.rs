@@ -436,6 +436,7 @@ impl Daemon {
                 params.username.clone(),
                 params.size,
                 directory,
+                false,
                 params.metadata.into(),
             )
             .map_err(|e| {
@@ -876,6 +877,7 @@ mod tests {
             username: String,
             size: u64,
             directory: String,
+            use_username_dirs: bool,
         ) -> soulseek_rs::Result<(
             soulseek_rs::types::Download,
             Receiver<soulseek_rs::DownloadStatus>,
@@ -885,6 +887,7 @@ mod tests {
                 username,
                 size,
                 directory,
+                use_username_dirs,
                 soulseek_rs::types::DownloadMetadata::default(),
             )
         }
@@ -894,6 +897,7 @@ mod tests {
             _username: String,
             _size: u64,
             _directory: String,
+            _use_username_dirs: bool,
             _metadata: soulseek_rs::types::DownloadMetadata,
         ) -> soulseek_rs::Result<(
             soulseek_rs::types::Download,

@@ -17,6 +17,7 @@ fn applying_settings_attached_pushes_both_folders_to_the_daemon() {
     let mut tui = MainTui::new(
         session.clone(),
         "/daemon/old".to_string(),
+        false,
         Duration::from_secs(1),
         None,
         Some(config_path.clone()),
@@ -73,6 +74,7 @@ fn applying_settings_locally_stays_on_this_machine() {
     let mut tui = MainTui::new(
         session.clone(),
         "/tmp".to_string(),
+        false,
         Duration::from_secs(1),
         None,
         Some(config_path),

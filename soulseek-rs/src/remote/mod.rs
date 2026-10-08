@@ -367,6 +367,7 @@ fn rebuild(dto: DownloadDto, sender: Sender<DownloadStatus>) -> Download {
         token: dto.token,
         size: dto.size,
         download_directory: dto.download_directory,
+        use_username_dirs: dto.use_username_dirs,
         status: dto.status.into(),
         sender,
         queue_position: dto.queue_position,
@@ -578,6 +579,7 @@ impl SessionApi for RemoteSession {
         username: String,
         size: u64,
         _download_directory: String,
+        _use_username_dirs: bool,
         // the daemon's own download directory wins — a remote caller
         // cannot see the filesystem the bytes land on. Plumb a per-transfer
         // directory through if a client ever needs to sort into subfolders.
@@ -596,6 +598,7 @@ impl SessionApi for RemoteSession {
         username: String,
         size: u64,
         _download_directory: String,
+        _use_username_dirs: bool,
         metadata: DownloadMetadata,
     ) -> Result<(Download, Receiver<DownloadStatus>)> {
         self.start_download(filename, username, size, metadata)

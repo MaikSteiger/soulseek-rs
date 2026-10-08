@@ -436,6 +436,7 @@ mod tests {
             token: 1,
             size: 100,
             download_directory: "~/dl".to_string(),
+            use_username_dirs: false,
             status,
             sender,
             queue_position: None,

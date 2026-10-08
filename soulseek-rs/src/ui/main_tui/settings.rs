@@ -20,6 +20,7 @@ impl MainTui {
             account,
             self.download_dir.clone(),
             self.client.shared_directories(),
+            self.use_username_dirs.clone(),
         ));
     }
 
@@ -66,6 +67,7 @@ impl MainTui {
         };
         let download_dir = settings.download_dir.clone();
         let share_dirs = settings.share_dirs.clone();
+        let use_username_dirs = settings.use_username_dirs;
 
         let shares = if self.client.daemon_endpoint().is_some() {
             share_dirs.clone()
@@ -121,6 +123,7 @@ impl MainTui {
                     // load, so leaving it would resurrect a removed folder.
                     config.shared_dir = None;
                     config.shared_dirs = Some(share_dirs);
+                    config.use_username_dirs = Some(use_username_dirs);
                     config.save(&path)
                 });
             if let Err(e) = result {

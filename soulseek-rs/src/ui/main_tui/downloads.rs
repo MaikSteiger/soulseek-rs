@@ -48,9 +48,16 @@ impl MainTui {
         self.state.downloads.remove(index);
         self.select_download_after_removal(index);
         let _ = self.client.remove_download(&username, &filename);
+        let use_username_dirs = self.use_username_dirs;
 
         thread::spawn(move || {
-            match client.download(filename.clone(), username, size, directory) {
+            match client.download(
+                filename.clone(),
+                username,
+                size,
+                directory,
+                use_username_dirs,
+            ) {
                 Ok((download, rx)) => {
                     let _ = sender.send((download, rx));
                 }
@@ -197,6 +204,7 @@ impl MainTui {
         let sender = self.downloads_sender();
         let client = self.client.clone();
         let download_dir = self.download_dir.clone();
+        let use_username_dirs = self.use_username_dirs;
 
         thread::spawn(move || {
             for file in selected_files {
@@ -211,6 +219,7 @@ impl MainTui {
                     file.username.clone(),
                     file.size,
                     download_dir.clone(),
+                    use_username_dirs,
                     metadata,
                 ) {
                     Ok((download, rx)) => {
