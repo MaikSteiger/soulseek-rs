@@ -192,6 +192,7 @@ fn an_attached_window_offers_no_logout() {
     let mut tui = attach(session);
     press(&mut tui, KeyCode::Char('o'));
     press(&mut tui, KeyCode::Down);
+    press(&mut tui, KeyCode::Down);
     press(&mut tui, KeyCode::Enter);
 
     let settings = tui.state.settings.as_ref().expect("still open");

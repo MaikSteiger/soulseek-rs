@@ -509,12 +509,15 @@ mod tests {
             s.rows(),
             vec![
                 SettingsRow::ChangePassword,
+                SettingsRow::UseUsernameDirs,
                 SettingsRow::DownloadDir,
                 SettingsRow::Share(0),
             ]
         );
         // The row below "change password" is the download folder, not a
         // logout the window cannot perform.
+        s.handle_key(key(KeyCode::Down));
+        assert_eq!(s.selected_row(), SettingsRow::UseUsernameDirs);
         s.handle_key(key(KeyCode::Down));
         assert_eq!(s.selected_row(), SettingsRow::DownloadDir);
     }
