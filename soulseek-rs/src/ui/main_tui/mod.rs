@@ -12,11 +12,13 @@ use crate::persist::{
     snapshot::{Snapshot, restore_messages, restore_searches},
     state::{PersistedMessage, StateStore},
 };
+use crate::ui::sanitize_path_component;
 use color_eyre::Result;
 use ratatui::{
     DefaultTerminal,
     crossterm::event::{self, Event, KeyEventKind, poll},
 };
+use std::path::Path;
 use std::{sync::Arc, time::Duration};
 
 pub struct MainTui {
@@ -121,7 +123,6 @@ impl MainTui {
                         token: 0,
                         size: entry.size,
                         download_directory: entry.download_directory,
-                        use_username_dirs: entry.use_username_dirs,
                         status: soulseek_rs::DownloadStatus::Completed,
                         sender: std::sync::mpsc::channel().0,
                         queue_position: None,
@@ -133,13 +134,23 @@ impl MainTui {
             } else {
                 let client = self.client.clone();
                 let sender = sender.clone();
+                let use_username_dirs = self.use_username_dirs;
                 std::thread::spawn(move || {
+                    let sanitized_username =
+                        sanitize_path_component(entry.username.as_str());
+                    let download_dir = if use_username_dirs {
+                        Path::new(entry.download_directory.as_str())
+                            .join(sanitized_username.as_str())
+                            .display()
+                            .to_string()
+                    } else {
+                        entry.download_directory
+                    };
                     match client.download(
                         entry.filename.clone(),
                         entry.username,
                         entry.size,
-                        entry.download_directory,
-                        entry.use_username_dirs,
+                        download_dir,
                     ) {
                         Ok((download, rx)) => {
                             let _ = sender.send((download, rx));

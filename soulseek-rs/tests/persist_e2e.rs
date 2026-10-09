@@ -17,7 +17,6 @@ fn download_entry(filename: &str, status: DownloadStatus) -> DownloadEntry {
             token: 1,
             size: 1000,
             download_directory: "/music".into(),
-            use_username_dirs: false,
             status,
             sender: std::sync::mpsc::channel().0,
             queue_position: None,

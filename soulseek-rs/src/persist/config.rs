@@ -86,7 +86,7 @@ impl FileConfig {
             "daemon" => self.daemon.clone(),
             "daemon_token" => self.daemon_token.clone(),
             "use_username_dirs" => {
-                self.use_username_dirs.clone().map(|v| v.to_string())
+                self.use_username_dirs.map(|v| v.to_string())
             }
             _ => None,
         }

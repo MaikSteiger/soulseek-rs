@@ -240,9 +240,6 @@
             "minimum": 0,
             "type": "integer"
           },
-          "use_username_dirs": {
-            "type": "boolean"
-          },
           "username": {
             "type": "string"
           }
@@ -253,7 +250,6 @@
           "token",
           "size",
           "download_directory",
-          "use_username_dirs",
           "status"
         ],
         "type": "object"

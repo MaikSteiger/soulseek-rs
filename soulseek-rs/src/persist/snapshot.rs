@@ -126,7 +126,6 @@ mod tests {
                 token: 7,
                 size: 42,
                 download_directory: "/music".into(),
-                use_username_dirs: false,
                 status,
                 sender,
                 queue_position: None,

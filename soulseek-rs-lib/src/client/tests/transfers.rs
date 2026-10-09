@@ -97,7 +97,6 @@ fn download_without_a_connection_resolves_failed() {
             "peer".to_string(),
             100,
             "test".to_string(),
-            false,
         )
         .expect("download() should return a handle");
     assert!(matches!(

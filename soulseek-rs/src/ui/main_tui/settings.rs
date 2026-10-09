@@ -20,7 +20,7 @@ impl MainTui {
             account,
             self.download_dir.clone(),
             self.client.shared_directories(),
-            self.use_username_dirs.clone(),
+            self.use_username_dirs,
         ));
     }
 

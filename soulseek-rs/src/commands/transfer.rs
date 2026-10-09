@@ -518,7 +518,6 @@ fn download_one(
             request.user.clone(),
             request.size,
             download_dir.to_string(),
-            false,
         )
         .map_err(|e| CliError::transfer(format!("cannot start: {e}")))?;
 

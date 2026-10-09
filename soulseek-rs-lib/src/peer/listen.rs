@@ -479,7 +479,6 @@ mod tests {
             token,
             size: 100,
             download_directory: std::env::temp_dir().display().to_string(),
-            use_username_dirs: false,
             status: DownloadStatus::Queued,
             sender: mpsc::channel().0,
             queue_position: None,

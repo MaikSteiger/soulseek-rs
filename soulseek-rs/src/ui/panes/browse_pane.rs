@@ -339,7 +339,6 @@ mod tests {
                 token: 1,
                 size: 4096,
                 download_directory: "/tmp".to_string(),
-                use_username_dirs: false,
                 status,
                 sender,
                 queue_position: None,

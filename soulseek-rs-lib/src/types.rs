@@ -185,7 +185,6 @@ pub struct Download {
     pub token: u32,
     pub size: u64,
     pub download_directory: String,
-    pub use_username_dirs: bool,
     pub status: DownloadStatus,
     pub sender: Sender<DownloadStatus>,
     pub queue_position: Option<u32>,

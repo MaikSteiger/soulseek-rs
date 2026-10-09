@@ -23,7 +23,6 @@ fn download(
         token,
         size: 100,
         download_directory: "test".to_string(),
-        use_username_dirs: false,
         status,
         sender,
         queue_position: None,

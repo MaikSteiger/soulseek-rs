@@ -102,7 +102,6 @@ pub trait SessionApi: Send + Sync {
         username: String,
         size: u64,
         download_directory: String,
-        use_username_dirs: bool,
     ) -> Result<(Download, Receiver<DownloadStatus>)>;
     fn download_with_metadata(
         &self,
@@ -110,7 +109,6 @@ pub trait SessionApi: Send + Sync {
         username: String,
         size: u64,
         download_directory: String,
-        use_username_dirs: bool,
         metadata: DownloadMetadata,
     ) -> Result<(Download, Receiver<DownloadStatus>)>;
     fn get_all_downloads(&self) -> Vec<Download>;
@@ -273,16 +271,8 @@ impl SessionApi for Client {
         username: String,
         size: u64,
         download_directory: String,
-        use_username_dirs: bool,
     ) -> Result<(Download, Receiver<DownloadStatus>)> {
-        Self::download(
-            self,
-            filename,
-            username,
-            size,
-            download_directory,
-            use_username_dirs,
-        )
+        Self::download(self, filename, username, size, download_directory)
     }
 
     fn download_with_metadata(
@@ -291,7 +281,6 @@ impl SessionApi for Client {
         username: String,
         size: u64,
         download_directory: String,
-        use_username_dirs: bool,
         metadata: DownloadMetadata,
     ) -> Result<(Download, Receiver<DownloadStatus>)> {
         Self::download_with_metadata(
@@ -300,7 +289,6 @@ impl SessionApi for Client {
             username,
             size,
             download_directory,
-            use_username_dirs,
             metadata,
         )
     }

@@ -84,7 +84,6 @@ fn at_status(
         token: 1,
         size: 4096,
         download_directory: "/tmp".to_string(),
-        use_username_dirs: false,
         status,
         sender,
         queue_position: None,
@@ -161,7 +160,6 @@ impl SessionApi for TalkativeSession {
         _username: String,
         _size: u64,
         _directory: String,
-        _use_username_dirs: bool,
     ) -> soulseek_rs::Result<(
         soulseek_rs::types::Download,
         std::sync::mpsc::Receiver<soulseek_rs::DownloadStatus>,
@@ -174,7 +172,6 @@ impl SessionApi for TalkativeSession {
         _username: String,
         _size: u64,
         _directory: String,
-        _use_username_dirs: bool,
         _metadata: soulseek_rs::types::DownloadMetadata,
     ) -> soulseek_rs::Result<(
         soulseek_rs::types::Download,

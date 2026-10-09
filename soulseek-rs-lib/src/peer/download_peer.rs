@@ -110,10 +110,6 @@ fn resolve_download_path(download: &Download) -> Result<String, DownloadError> {
             .to_path_buf();
     }
 
-    if download.use_username_dirs {
-        expanded_path = expanded_path.join(download.username.as_str());
-    }
-
     let final_path =
         expanded_path.join(extract_filename_from_path(&download.filename));
 
@@ -639,7 +635,6 @@ mod tests {
             token: 1,
             size,
             download_directory: dir.display().to_string(),
-            use_username_dirs: false,
             status: DownloadStatus::Queued,
             sender: mpsc::channel().0,
             queue_position: None,

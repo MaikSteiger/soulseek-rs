@@ -1,8 +1,10 @@
 use super::MainTui;
 use crate::models::{DownloadEntry, FileDisplayData};
 use crate::ui::panes::{InfoSubject, selected_transfer};
+use crate::ui::sanitize_path_component;
 use soulseek_rs::types::UploadStatus;
 use soulseek_rs::{DownloadStatus, types::Download};
+use std::path::Path;
 use std::{sync::mpsc, thread};
 
 impl MainTui {
@@ -48,16 +50,9 @@ impl MainTui {
         self.state.downloads.remove(index);
         self.select_download_after_removal(index);
         let _ = self.client.remove_download(&username, &filename);
-        let use_username_dirs = self.use_username_dirs;
 
         thread::spawn(move || {
-            match client.download(
-                filename.clone(),
-                username,
-                size,
-                directory,
-                use_username_dirs,
-            ) {
+            match client.download(filename.clone(), username, size, directory) {
                 Ok((download, rx)) => {
                     let _ = sender.send((download, rx));
                 }
@@ -214,12 +209,21 @@ impl MainTui {
                     peer_upload_speed: Some(file.speed),
                     peer_free_slots: Some(file.slots),
                 };
+                let download_dir = if use_username_dirs {
+                    let sanitized_username =
+                        sanitize_path_component(file.username.as_str());
+                    Path::new(download_dir.as_str())
+                        .join(sanitized_username.as_str())
+                        .display()
+                        .to_string()
+                } else {
+                    download_dir.clone()
+                };
                 match client.download_with_metadata(
                     file.filename.clone(),
                     file.username.clone(),
                     file.size,
-                    download_dir.clone(),
-                    use_username_dirs,
+                    download_dir,
                     metadata,
                 ) {
                     Ok((download, rx)) => {

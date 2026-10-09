@@ -1148,13 +1148,9 @@ fn main() {
         let completed = completed.clone();
         workers.push(std::thread::spawn(move || {
             Metrics::bump(&metrics.downloads_issued);
-            let Ok((_download, status_rx)) = client.download(
-                filename.clone(),
-                peer.clone(),
-                size,
-                dir,
-                false,
-            ) else {
+            let Ok((_download, status_rx)) =
+                client.download(filename.clone(), peer.clone(), size, dir)
+            else {
                 return;
             };
             let deadline = run_deadline;
